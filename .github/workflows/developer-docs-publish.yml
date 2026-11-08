@@ -22,7 +22,7 @@ permissions:
 jobs:
   dry_run:
     if: github.event_name == 'pull_request' || github.repository != 'discourse/discourse-private-mirror'
-    runs-on: ubuntu-latest
+    runs-on: xenoci-2vcpu-ubuntu-2404
     timeout-minutes: 10
 
     defaults:
@@ -43,7 +43,7 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/main'
     needs: dry_run
-    runs-on: ubuntu-latest
+    runs-on: xenoci-2vcpu-ubuntu-2404
     timeout-minutes: 10
 
     env:

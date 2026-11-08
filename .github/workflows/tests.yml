@@ -25,7 +25,7 @@ jobs:
   build:
     if: github.event_name == 'pull_request' || github.repository != 'discourse/discourse-private-mirror'
     name: ${{ (matrix.target == 'core-plugins' && 'plugins (core)') || (matrix.target == 'official-plugins' && 'plugins (official)') || (matrix.target == 'chat' && 'plugins (chat)') || matrix.target }} ${{ matrix.build_type }}
-    runs-on: >-
+    runs-on: xenoci-2vcpu-ubuntu-2404
       ${{
         github.repository_owner == 'discourse' && (
           matrix.build_type == 'system' && (matrix.target == 'core' || matrix.target == 'core-plugins' || matrix.target == 'official-plugins')
@@ -415,7 +415,7 @@ jobs:
   deprecation-report:
     name: JS deprecation report
     if: always() && github.repository == 'discourse/discourse' && needs.build.result != 'skipped'
-    runs-on: ubuntu-latest
+    runs-on: xenoci-2vcpu-ubuntu-2404
     needs: build
     permissions:
       actions: read
@@ -457,7 +457,7 @@ jobs:
 
   merge:
     if: github.repository == 'discourse/discourse' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: xenoci-2vcpu-ubuntu-2404
     needs: build
     steps:
       - name: Check for artifacts to merge
